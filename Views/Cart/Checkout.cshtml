@@ -1,0 +1,244 @@
+﻿@{
+    ViewData["Title"] = "Checkout";
+}
+
+@Html.AntiForgeryToken()
+
+<style>
+    body {
+        background: #0d0d0d;
+        color: #fff;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .checkout-container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #1a1a1a;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+    }
+
+    h2 {
+        text-align: center;
+        color: #ff6600;
+        margin-bottom: 25px;
+        font-size: 25px;
+    }
+
+    label {
+        margin-top: 10px;
+        font-weight: 600;
+        display: block;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 6px;
+        border-radius: 6px;
+        border: none;
+        outline: none;
+        background: #222;
+        color: white;
+        font-size: 15px;
+    }
+
+    .error {
+        color: #ff4444;
+        font-size: 14px;
+        margin-top: 3px;
+    }
+
+    .payment-option {
+        margin-top: 15px;
+        background: #222;
+        padding: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 1px solid #444;
+        text-align: center;
+        font-size: 17px;
+        transition: 0.3s;
+    }
+
+        .payment-option:hover {
+            border-color: #ff6600;
+        }
+
+    #upiQR {
+        display: none;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    #toast {
+        visibility: hidden;
+        background-color: #333;
+        padding: 12px 20px;
+        border-radius: 6px;
+        position: fixed;
+        left: 50%;
+        bottom: 30px;
+        transform: translateX(-50%);
+        color: #fff;
+        font-weight: 600;
+        opacity: 0;
+        transition: 0.4s ease;
+        z-index: 9999;
+    }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+</style>
+
+<div class="checkout-container">
+
+    <h2>Delivery Details</h2>
+
+    <label>Full Name</label>
+    <input id="name" type="text">
+    <div id="nameError" class="error"></div>
+
+    <label>Phone Number</label>
+    <input id="phone" type="text" maxlength="10">
+    <div id="phoneError" class="error"></div>
+
+    <label>City</label>
+    <input id="city" type="text">
+    <div id="cityError" class="error"></div>
+
+    <label>Address</label>
+    <textarea id="address" rows="3"></textarea>
+    <div id="addressError" class="error"></div>
+
+    <h2 style="margin-top:30px;">Choose Payment Method</h2>
+
+    <div id="upiPay" class="payment-option">Pay via UPI</div>
+    <div id="codPay" class="payment-option">Cash on Delivery</div>
+
+    <div id="upiQR">
+        <p>Scan the QR to pay</p>
+        <img src="/images/upi-qr.png" width="200">
+        <p style="font-size:13px;color:#bbb;">Waiting for payment confirmation...</p>
+    </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+
+    function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = "show";
+        setTimeout(() => t.className = "", 2000);
+    }
+
+    function validateForm() {
+        let valid = true;
+
+        const name = nameInput.value.trim();
+        const phone = phoneInput.value.trim();
+        const city = cityInput.value.trim();
+        const address = addressInput.value.trim();
+
+        nameError.textContent = "";
+        phoneError.textContent = "";
+        cityError.textContent = "";
+        addressError.textContent = "";
+
+        if (name.length < 2) {
+            nameError.textContent = "Name must contain at least 2 characters.";
+            valid = false;
+        }
+        if (!/^[6-9][0-9]{9}$/.test(phone)) {
+            phoneError.textContent = "Phone must start with 6-9 and be 10 digits.";
+            valid = false;
+        }
+        if (!/^[A-Za-z\s]+$/.test(city)) {
+            cityError.textContent = "City cannot contain numbers.";
+            valid = false;
+        }
+        if (address.length < 5) {
+            addressError.textContent = "Address must be at least 5 characters.";
+            valid = false;
+        }
+        return valid;
+    }
+
+    async function postOrder(method) {
+
+        const token = document.querySelector("input[name='__RequestVerificationToken']").value;
+
+        const payload = {
+            FullName: nameInput.value.trim(),
+            Phone: phoneInput.value.trim(),
+            City: cityInput.value.trim(),
+            Address: addressInput.value.trim(),
+            PaymentMethod: method,
+            __RequestVerificationToken: token
+        };
+
+        const res = await fetch("/Cart/PlaceOrder", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams(payload)
+        });
+
+        return res.json();
+    }
+
+    const nameInput = document.getElementById("name");
+    const phoneInput = document.getElementById("phone");
+    const cityInput = document.getElementById("city");
+    const addressInput = document.getElementById("address");
+
+    const nameError = document.getElementById("nameError");
+    const phoneError = document.getElementById("phoneError");
+    const cityError = document.getElementById("cityError");
+    const addressError = document.getElementById("addressError");
+
+    // UPI PAYMENT
+    document.getElementById("upiPay").addEventListener("click", async () => {
+
+        if (!validateForm()) return;
+
+        upiPay.style.display = "none";
+        codPay.style.display = "none";
+        upiQR.style.display = "block";
+
+        showToast("Processing payment...");
+
+        setTimeout(async () => {
+            const r = await postOrder("UPI");
+            if (r.success) {
+                window.location.href = `/Cart/OrderConfirmed?orderId=${r.orderId}`;
+            } else {
+                showToast("Something went wrong");
+            }
+        }, 5000);
+    });
+
+    // COD PAYMENT
+    document.getElementById("codPay").addEventListener("click", async () => {
+
+        if (!validateForm()) return;
+
+        upiPay.style.display = "none";
+        codPay.style.display = "none";
+
+        showToast("Placing order...");
+
+        const r = await postOrder("COD");
+
+        if (r.success) {
+            window.location.href = `/Cart/OrderConfirmed?orderId=${r.orderId}`;
+        } else {
+            showToast("Something went wrong");
+        }
+    });
+</script>

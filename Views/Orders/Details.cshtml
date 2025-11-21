@@ -1,0 +1,31 @@
+﻿@model AnimeStore.Models.Order
+
+<h2 style="color:#ff6600;text-align:center;margin-top:25px;">Order #@Model.Id</h2>
+
+<div style="max-width:900px;margin:auto;background:#1a1a1a;padding:20px;border-radius:10px;">
+    <h4 style="color:#ff9c4a;">Status: @Model.Status</h4>
+    <p>Placed on: @Model.OrderDate.ToString("dd MMM yyyy")</p>
+    <p>Payment: @Model.PaymentMethod</p>
+    <p>Total Amount: ₹@Model.TotalAmount</p>
+
+    <hr style="border-color:#444;" />
+
+    <h3 style="color:#ff6600;">Items</h3>
+    @foreach (var item in Model.Items)
+    {
+        <div style="margin-bottom:15px;">
+            <strong>@item.Product?.Name</strong><br />
+            Quantity: @item.Quantity<br />
+            Price: ₹@item.Price
+        </div>
+    }
+
+    <hr style="border-color:#444;" />
+
+    <h3 style="color:#ff6600;">Delivery Details</h3>
+
+    <p><strong>Name:</strong> @Model.FullName</p>
+    <p><strong>Phone:</strong> @Model.Phone</p>
+    <p><strong>City:</strong> @Model.City</p>
+    <p><strong>Address:</strong> @Model.Address</p>
+</div>

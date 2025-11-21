@@ -1,0 +1,351 @@
+﻿@model AnimeStore.Models.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<style>
+    body {
+        background-color: #0d0d0d;
+        color: #fff;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .product-details {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 40px;
+        padding: 60px 40px;
+        max-width: 1200px;
+        margin: auto;
+        flex-wrap: wrap;
+    }
+
+    .image-zoom-container {
+        position: relative;
+        width: 420px;
+        height: 420px;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        background: #1a1a1a;
+        cursor: zoom-in;
+        flex-shrink: 0;
+    }
+
+    .image-zoom-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.25s ease;
+        transform-origin: center center;
+    }
+
+    .details-info {
+        max-width: 500px;
+        padding-top: 10px;
+    }
+
+    .details-info h1 {
+        color: #ff6600;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .details-info p.price {
+        color: #ff9c4a;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin: 10px 0 25px;
+    }
+
+    .details-info p.desc {
+        color: #ddd;
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+    .btns {
+        margin-top: 35px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .btn-orange {
+        background-color: #ff6600;
+        color: white;
+        border: none;
+        padding: 10px 22px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: background 0.3s ease;
+    }
+
+    .btn-orange:hover {
+        background-color: #e65c00;
+    }
+
+    .btn-outline-warning {
+        background-color: transparent;
+        border: 1px solid #ff9c4a;
+        color: #ff9c4a;
+        padding: 10px 22px;
+        border-radius: 6px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-warning:hover {
+        background-color: #ff9c4a;
+        color: #000;
+    }
+
+   @@media (max-width: 900px) {
+        .product-details {
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px;
+        }
+
+        .image-zoom-container {
+            width: 90%;
+            height: auto;
+        }
+
+        .details-info {
+            text-align: center;
+        }
+    }
+
+    .related-section {
+        max-width: 1200px;
+        margin: 60px auto;
+        text-align: center;
+    }
+
+    .related-title {
+        color: #ff6600;
+        font-size: 1.8rem;
+        margin-bottom: 25px;
+    }
+
+    .related-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .related-card {
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        overflow: hidden;
+        width: 240px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        text-align: center;
+    }
+
+    .related-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.12);
+    }
+
+    .related-card img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        border-bottom: 2px solid #333;
+        transition: transform 0.25s ease;
+    }
+
+    .related-card img:hover {
+        transform: scale(1.03);
+    }
+
+    .related-card h3 {
+        color: #ff6600;
+        margin: 15px 0 5px;
+    }
+
+    .related-card p {
+        color: #ff9c4a;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .view-details-btn {
+        display: inline-block;
+        margin-bottom: 20px;
+        background-color: transparent;
+        border: 1px solid #ff6600;
+        color: #ff6600;
+        padding: 8px 18px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .view-details-btn:hover {
+        background-color: #ff6600;
+        color: #fff;
+    }
+
+    /* Toast styling */
+    #toast {
+        visibility: hidden;
+        min-width: 250px;
+        margin-left: -125px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 14px;
+        position: fixed;
+        z-index: 10000;
+        left: 50%;
+        bottom: 30px;
+        font-weight: 600;
+        transition: visibility 0s, opacity 0.5s ease;
+        opacity: 0;
+    }
+
+    #toast.show {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+
+<div class="product-details">
+    <div class="image-zoom-container" id="zoom-container">
+        <img id="zoom-image" src="@Model.ImagePath" alt="@Model.Name" />
+    </div>
+
+    <div class="details-info">
+        <h1>@Model.Name</h1>
+        <p class="price">₹@Model.Price</p>
+        <p class="desc">@Model.Description</p>
+
+        <div class="btns">
+            <form id="cartForm" method="post" action="/Cart/AddToCart/@Model.Id" style="display:inline;">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn-orange">Add to Cart</button>
+            </form>
+
+            <form id="wishlistForm" method="post" action="/Wishlist/AddToWishlist/@Model.Id" style="display:inline;">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn-outline-warning">Add to Wishlist</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Related != null && ((List<AnimeStore.Models.Product>)ViewBag.Related).Any())
+{
+    <div class="related-section">
+        <h2 class="related-title"> Related Products</h2>
+        <div class="related-grid">
+            @foreach (var item in (List<AnimeStore.Models.Product>)ViewBag.Related)
+            {
+                <div class="related-card">
+                    <a href="/Products/Details/@item.Id" style="text-decoration:none; color:inherit;">
+                        <img src="@item.ImagePath" alt="@item.Name" />
+                        <h3>@item.Name</h3>
+                    </a>
+                    <p>₹@item.Price</p>
+                    <a href="/Products/Details/@item.Id" class="view-details-btn">View Details</a>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+<div id="toast"></div>
+
+<script>
+    function showToast(message, color = "#ff6600") {
+        const toast = document.getElementById("toast");
+        toast.innerText = message;
+        toast.style.backgroundColor = color;
+        toast.className = "show";
+        setTimeout(() => toast.className = toast.className.replace("show", ""), 2500);
+    }
+
+    async function handleFormSubmit(form, successMessage) {
+        event.preventDefault();
+        const token = form.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "XSRF-TOKEN": token // ✅ Correct ASP.NET token header
+                },
+                body: `__RequestVerificationToken=${encodeURIComponent(token)}`
+            });
+
+            const text = await response.text();
+
+            // ✅ Detect redirect to login (unauthenticated)
+            if (text.includes("<!DOCTYPE html>") && text.toLowerCase().includes("login")) {
+                showToast("⚠️ Please login to continue", "#d9534f");
+                return;
+            }
+
+            // ✅ Handle JSON success response
+            if (response.ok) {
+                const data = JSON.parse(text);
+                if (data && data.success) {
+                    showToast(successMessage, "#5cb85c");
+                } else {
+                    showToast("⚠️ Please login to continue", "#d9534f");
+                }
+            } else {
+                showToast("❌ Something went wrong", "#d9534f");
+            }
+        } catch (err) {
+            console.error("Fetch Error:", err);
+            showToast("❌ Network error", "#d9534f");
+        }
+    }
+
+    document.getElementById("cartForm").addEventListener("submit", function (e) {
+        handleFormSubmit(this, "🛒 Item added to cart!");
+    });
+
+    document.getElementById("wishlistForm").addEventListener("submit", function (e) {
+        handleFormSubmit(this, "💖 Item added to wishlist!");
+    });
+
+    // Zoom logic
+    const zoomContainer = document.getElementById("zoom-container");
+    const zoomImage = document.getElementById("zoom-image");
+    let isZoomed = false;
+
+    zoomContainer.addEventListener("mousemove", (e) => {
+        const rect = zoomContainer.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+        if (isZoomed) {
+            zoomImage.style.transformOrigin = `${x}% ${y}%`;
+            zoomImage.style.transform = "scale(2.2)";
+        }
+    });
+
+    zoomContainer.addEventListener("click", () => {
+        isZoomed = !isZoomed;
+        zoomContainer.style.cursor = isZoomed ? "zoom-out" : "zoom-in";
+        zoomImage.style.transform = isZoomed ? "scale(2.2)" : "scale(1)";
+    });
+
+    zoomContainer.addEventListener("mouseleave", () => {
+        isZoomed = false;
+        zoomImage.style.transform = "scale(1)";
+        zoomContainer.style.cursor = "zoom-in";
+    });
+</script>

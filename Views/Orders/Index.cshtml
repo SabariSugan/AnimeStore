@@ -1,0 +1,27 @@
+﻿@model List<AnimeStore.Models.Order>
+
+<h2 style="text-align:center;color:#ff6600;margin-top:30px;">Your Orders</h2>
+
+@if (!Model.Any())
+{
+    <p style="color:#ff9c4a;text-align:center;">You have no orders yet.</p>
+}
+else
+{
+    <div style="max-width:900px;margin:auto;">
+        @foreach (var order in Model)
+        {
+            <div style="background:#1a1a1a;padding:20px;border-radius:10px;margin-bottom:16px;">
+                <h3 style="color:#ff9c4a">Order #@order.Id</h3>
+                <p>Status: <strong>@order.Status</strong></p>
+                <p>Total: ₹@order.TotalAmount</p>
+                <p>Date: @order.OrderDate.ToString("dd MMM yyyy")</p>
+
+                <button onclick="location.href='@Url.Action("Details","Orders", new { id = order.Id })'"
+                        style="margin-top:10px;background:#ff6600;padding:10px 15px;border:none;border-radius:6px;color:#fff;cursor:pointer;">
+                    View Details
+                </button>
+            </div>
+        }
+    </div>
+}

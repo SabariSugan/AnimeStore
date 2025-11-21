@@ -1,0 +1,242 @@
+﻿[
+    {
+        "Id": 1,
+        "Name": "Naruto Uzumaki Figure",
+        "Category": "Figurines",
+        "Price": 999,
+        "ImagePath": "/images/products/NF.jpg",
+        "Description": "From Naruto Shippuden, this highly detailed Naruto Uzumaki figure ready for battle. Perfect detailing on his outfit and fierce expression makes this an essential collectible for every shinobi fan."
+    },
+    {
+        "Id": 2,
+        "Name": "Luffy Gear 5 Figure",
+        "Category": "Figurines",
+        "Price": 1799,
+        "ImagePath": "/images/products/LuffyG5.jpg",
+        "Description": "Gear 5 Monkey D. Luffy from One Piece captured mid-laugh in his most powerful form! With elastic energy effects and hand-painted finishing, this limited edition figure is a centerpiece for any One Piece collector."
+    },
+    {
+        "Id": 3,
+        "Name": "Gojo Satoru Figure",
+        "Category": "Figurines",
+        "Price": 1499,
+        "ImagePath": "/images/products/Gojo.jpg",
+        "Description": "From Jujutsu Kaisen, the strongest sorcerer Gojo Satoru in his iconic blindfold. The sculpt captures his cursed energy aura and effortless confidence. Must-have for JJK fans!"
+    },
+    {
+        "Id": 4,
+        "Name": "Itachi Uchiha Figure",
+        "Category": "Figurines",
+        "Price": 1499,
+        "ImagePath": "/images/products/ItachiF.jpg",
+        "Description": "Itachi Uchiha from Naruto in his Akatsuki cloak. The detail in his eyes and cloak embroidery is breathtaking. A true tribute to the most tragic genius of the Leaf."
+    },
+    {
+        "Id": 5,
+        "Name": "Levi Ackerman Figure",
+        "Category": "Figurines",
+        "Price": 1599,
+        "ImagePath": "/images/products/LeviF.jpg",
+        "Description": "Levi Ackerman from Attack on Titan, airborne with dual blades drawn. His 3D maneuver gear is intricately sculpted and perfectly painted to capture his ruthless efficiency."
+    },
+    {
+        "Id": 6,
+        "Name": "Goku Super Saiyan Figure",
+        "Category": "Figurines",
+        "Price": 1699,
+        "ImagePath": "/images/products/GokuF.jpg",
+        "Description": "The proud Saiyan Goku! Goku powers up with lightning aura. A timeless piece for DBZ fans."
+    },
+    {
+        "Id": 7,
+        "Name": "Zoro Roronoa Figure",
+        "Category": "Figurines",
+        "Price": 1399,
+        "ImagePath": "/images/products/ZoroF.jpg",
+        "Description": "Roronoa Zoro from One Piece, captured in his Onigashima arc pose with Enma unsheathed. The intense gaze and dual-sword stance make this figure a masterpiece."
+    },
+    {
+        "Id": 8,
+        "Name": "Kakashi Hatake Figure",
+        "Category": "Figurines",
+        "Price": 1199,
+        "ImagePath": "/images/products/KakashiF.jpg",
+        "Description": "Copy Ninja Kakashi from Naruto. His cloak, mask, and Sharingan eye glow with stunning accuracy. A fan-favorite collectible."
+    },
+    {
+        "Id": 9,
+        "Name": "Eren Yeager Figure",
+        "Category": "Figurines",
+        "Price": 1599,
+        "ImagePath": "/images/products/ErenF.jpg",
+        "Description": "Eren Yeager in Titan stance with his cloak flowing — a chilling figure representing his final transformation arc. Sculpted with raw detail and emotion."
+    },
+    {
+        "Id": 10,
+        "Name": "Tanjiro Kamado Figure",
+        "Category": "Figurines",
+        "Price": 1299,
+        "ImagePath": "/images/products/DSF.jpg",
+        "Description": "Tanjiro Kamado. From Demon Slayer, this figure captures his determination and spirit perfectly."
+    },
+    {
+        "Id": 11,
+        "Name": "Luffy Keychain",
+        "Category": "Keychains",
+        "Price": 199,
+        "ImagePath": "/images/products/OPK.jpg",
+        "Description": "Luffy’s keychain. A simple yet nostalgic piece for every One Piece lover."
+    },
+    {
+        "Id": 12,
+        "Name": "Levi Keychain",
+        "Category": "Keychains",
+        "Price": 249,
+        "ImagePath": "/images/products/AOTK.jpg",
+        "Description": "Carry humanity’s strongest soldier with you — Levi Ackerman from Attack on Titan!"
+    },
+    {
+        "Id": 13,
+        "Name": "Ken Kaneki Keychain",
+        "Category": "Keychains",
+        "Price": 299,
+        "ImagePath": "/images/products/TGK.jpg",
+        "Description": "Kaneki Ken’s keychain. Matte black metal finish and red accents bring the Ghoul aesthetic to life."
+    },
+    {
+        "Id": 14,
+        "Name": "Naruto Kunai Keychain",
+        "Category": "Keychains",
+        "Price": 199,
+        "ImagePath": "/images/products/KunaiK.jpg",
+        "Description": "Miniature metal Kunai keychain from Naruto. Sturdy and sleek, perfect for your backpack or key ring."
+    },
+    {
+        "Id": 15,
+        "Name": "Demon Slayer Sword Keychain",
+        "Category": "Keychains",
+        "Price": 249,
+        "ImagePath": "/images/products/DSK.jpg",
+        "Description": "Nichirin Blade miniature from Demon Slayer with exquisite detailing and metallic shine."
+    },
+    {
+        "Id": 16,
+        "Name": "Gojo Satoru Keychain",
+        "Category": "Keychains",
+        "Price": 299,
+        "ImagePath": "/images/products/GojoK.jpg",
+        "Description": "Carry the power of the Six Eyes wherever you go with this polished Jujutsu Kaisen Gojo keychain."
+    },
+    {
+        "Id": 17,
+        "Name": "Zoro Sword Keychain",
+        "Category": "Keychains",
+        "Price": 249,
+        "ImagePath": "/images/products/ZoroK.jpg",
+        "Description": "Embody the spirit of the Pirate Hunter with this Roronoa Zoro Sword Keychain!"
+    },
+    {
+        "Id": 18,
+        "Name": "Sukuna Finger Keychain",
+        "Category": "Keychains",
+        "Price": 349,
+        "ImagePath": "/images/products/SukunaK.jpg",
+        "Description": "Hold the curse of the King of Curses — Ryomen Sukuna!"
+    },
+    {
+        "Id": 19,
+        "Name": "Chopper Plush Keychain",
+        "Category": "Keychains",
+        "Price": 249,
+        "ImagePath": "/images/products/ChopperK.jpg",
+        "Description": "Adorable mini Chopper keychain from One Piece — lightweight, and guaranteed to make you smile."
+    },
+    {
+        "Id": 20,
+        "Name": "Luffy Keychain ",
+        "Category": "Keychains",
+        "Price": 299,
+        "ImagePath": "/images/products/LuffyK.jpg",
+        "Description": "Carry the spirit of the Pirate King with this Monkey D. Luffy keychain!"
+    },
+    {
+        "Id": 21,
+        "Name": "One Piece Wanted Poster",
+        "Category": "Posters",
+        "Price": 499,
+        "ImagePath": "/images/products/OPPoster.jpg",
+        "Description": "High-quality One Piece wanted poster print featuring Straw Hat Crew. Glossy finish with crisp details."
+    },
+    {
+        "Id": 22,
+        "Name": "Naruto Sage of 6 path Poster",
+        "Category": "Posters",
+        "Price": 449,
+        "ImagePath": "/images/products/NarutoPoster.jpg",
+        "Description": "Epic Naruto captured in high-resolution art. Perfect for your wall or gaming setup."
+    },
+    {
+        "Id": 23,
+        "Name": "Attack on Titan Poster",
+        "Category": "Posters",
+        "Price": 549,
+        "ImagePath": "/images/products/AOTPoster.jpg",
+        "Description": "Eren Yeager’s rage and determination immortalized in this cinematic AOT poster. Dark, moody, and epic."
+    },
+    {
+        "Id": 24,
+        "Name": "Jujutsu Kaisen Yuji Poster",
+        "Category": "Posters",
+        "Price": 499,
+        "ImagePath": "/images/products/JJKPoster.jpg",
+        "Description": "Unleash the power of Sukuna’s vessel with this Jujutsu Kaisen Yuji Itadori Poster!"
+    },
+    {
+        "Id": 25,
+        "Name": "Demon Slayer Poster",
+        "Category": "Posters",
+        "Price": 499,
+        "ImagePath": "/images/products/DSPoster.jpg",
+        "Description": "Relive the start of Tanjiro and Nezuko’s journey with this Demon Slayer Season 1 Poster!"
+    },
+    {
+        "Id": 26,
+        "Name": "Tokyo Ghoul Kaneki Poster",
+        "Category": "Posters",
+        "Price": 479,
+        "ImagePath": "/images/products/TGPoster.jpg",
+        "Description": "Kaneki Ken’s dual identity captured in haunting monochrome tones. Essential decor for Tokyo Ghoul fans."
+    },
+    {
+        "Id": 27,
+        "Name": "Chainsaw Man Denji Poster",
+        "Category": "Posters",
+        "Price": 499,
+        "ImagePath": "/images/products/CSMPoster.jpg",
+        "Description": "Denji revving his chainsaws in a bloody splash background. High-resolution, glossy, and chaotic — just like him!"
+    },
+    {
+        "Id": 28,
+        "Name": "Bleach Ichigo Poster",
+        "Category": "Posters",
+        "Price": 499,
+        "ImagePath": "/images/products/BleachPoster.jpg",
+        "Description": "Ichigo Kurosaki unleashing Getsuga Tenshō — detailed, vibrant, and anime-accurate. A must-have for Bleach fans."
+    },
+    {
+        "Id": 29,
+        "Name": "Dragon Ball Super Goku Poster",
+        "Category": "Posters",
+        "Price": 469,
+        "ImagePath": "/images/products/DBPoster.jpg",
+        "Description": "Super Saiyan Goku. Glossy, colorful, and perfect for any Dragon Ball fan."
+    },
+    {
+        "Id": 30,
+        "Name": "One Punch Man Poster",
+        "Category": "Posters",
+        "Price": 499,
+        "ImagePath": "/images/products/OPMPoster.jpg",
+        "Description": "Saitama delivering his iconic punch with a deadpan face. Clean, bold, and comedic — a poster that hits just right."
+    }
+]

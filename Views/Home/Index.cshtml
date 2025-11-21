@@ -1,0 +1,254 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    var featured = ViewBag.Featured as List<AnimeStore.Models.Product>;
+    var mostPurchased = ViewBag.MostPurchased as List<AnimeStore.Models.Product>;
+    var newArrivals = ViewBag.NewArrivals as List<AnimeStore.Models.Product>;
+    var posters = ViewBag.Posters as List<AnimeStore.Models.Product>;
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+    body {
+        background-color: #121212;
+        color: #f0f0f0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(90deg, rgba(255,102,0,0.9), rgba(255,102,0,0.5)), url('/images/hero-bg.jpg') center/cover no-repeat;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 10px;
+        margin: 30px 20px 40px;
+        box-shadow: 0 0 25px rgba(255, 102, 0, 0.5);
+    }
+
+        .hero-section h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.1em;
+            text-shadow: 2px 2px 8px #000;
+        }
+
+        .hero-section p {
+            color: #ffcf9c;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .hero-section a {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+            .hero-section a:hover {
+                background-color: #e65c00;
+            }
+
+    /* Section Title */
+    .section-title {
+        text-align: center;
+        color: #ff6600;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 40px 0 25px;
+        letter-spacing: 0.1em;
+    }
+
+    /* Product Grid */
+    .product-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+        margin: 0 auto;
+        max-width: 1100px;
+        padding-bottom: 40px;
+    }
+
+    /* Product Card */
+    .product-card {
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        text-align: center;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        width: 260px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 18px 2px rgba(255, 102, 0, 0.35);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-bottom: 2px solid #ff6600;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+            .product-card img:hover {
+                transform: scale(1.05);
+            }
+
+        .product-card h3 {
+            color: #ff6600;
+            margin: 15px 0 5px;
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        .product-card p {
+            margin-bottom: 10px;
+            color: #ff9c4a;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .product-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+            .product-card a.details-btn {
+                background-color: transparent;
+                border: 1px solid #ff6600;
+                color: #ff6600;
+                padding: 8px 18px;
+                border-radius: 5px;
+                text-decoration: none;
+                margin: 15px auto 20px;
+                display: inline-block;
+                width: fit-content;
+                transition: all 0.3s ease;
+            }
+
+                .product-card a.details-btn:hover {
+                    background-color: #ff6600;
+                    color: #fff;
+                }
+
+    a, a:visited, a:focus {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    @@media (max-width: 768px) {
+        .hero-section {
+            height: 300px;
+            margin: 20px 10px 30px;
+        }
+
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .hero-section p {
+                font-size: 1rem;
+            }
+
+        .product-card {
+            width: 90%;
+        }
+
+            .product-card img {
+                height: 230px;
+            }
+
+        .product-grid {
+            gap: 12px;
+        }
+    }
+</style>
+
+<!-- HERO -->
+<section class="hero-section">
+    <h1>Welcome to Anime Store</h1>
+    <p>Your one-stop shop for anime figurines, keychains, and collectibles!</p>
+    <a href="/Products">Explore Full Collection</a>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<h2 class="section-title">Featured Products</h2>
+<div class="product-grid">
+    @foreach (var product in featured)
+    {
+        <div class="product-card">
+            <a href="/Products/Details/@product.Id">
+                <img src="@product.ImagePath" alt="@product.Name" />
+                <h3>@product.Name</h3>
+            </a>
+            <p>₹@product.Price</p>
+            <a href="/Products/Details/@product.Id" class="details-btn">View Details</a>
+        </div>
+    }
+</div>
+
+<!-- MOST PURCHASED -->
+<h2 class="section-title">Most Purchased</h2>
+<div class="product-grid">
+    @foreach (var product in mostPurchased)
+    {
+        <div class="product-card">
+            <a href="/Products/Details/@product.Id">
+                <img src="@product.ImagePath" alt="@product.Name" />
+                <h3>@product.Name</h3>
+            </a>
+            <p>₹@product.Price</p>
+            <a href="/Products/Details/@product.Id" class="details-btn">View Details</a>
+        </div>
+    }
+</div>
+
+<!-- NEW ARRIVALS -->
+<h2 class="section-title"> New Arrivals</h2>
+<div class="product-grid">
+    @foreach (var product in newArrivals)
+    {
+        <div class="product-card">
+            <a href="/Products/Details/@product.Id">
+                <img src="@product.ImagePath" alt="@product.Name" />
+                <h3>@product.Name</h3>
+            </a>
+            <p>₹@product.Price</p>
+            <a href="/Products/Details/@product.Id" class="details-btn">View Details</a>
+        </div>
+    }
+</div>
+
+<!-- POSTERS -->
+<h2 class="section-title"> Posters & Art Prints</h2>
+<div class="product-grid">
+    @foreach (var product in posters)
+    {
+        <div class="product-card">
+            <a href="/Products/Details/@product.Id">
+                <img src="@product.ImagePath" alt="@product.Name" />
+                <h3>@product.Name</h3>
+            </a>
+            <p>₹@product.Price</p>
+            <a href="/Products/Details/@product.Id" class="details-btn">View Details</a>
+        </div>
+    }
+</div>

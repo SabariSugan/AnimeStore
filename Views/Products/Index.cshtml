@@ -1,0 +1,197 @@
+﻿@model IEnumerable<AnimeStore.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<style>
+    body {
+        background-color: #0d0d0d;
+        color: #fff;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 40px 0 10px;
+        color: #ff6600;
+    }
+
+    /* FILTER BAR */
+    .filter-bar {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+        .filter-bar a,
+        .sort-dropdown select {
+            margin: 5px;
+            padding: 8px 15px;
+            background-color: #1a1a1a;
+            color: #ff6600;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+            .filter-bar a:hover,
+            .sort-dropdown select:hover {
+                background-color: #ff6600;
+                color: #fff;
+            }
+
+            .filter-bar a.active {
+                background-color: #ff6600;
+                color: #fff;
+            }
+
+    /* SORT DROPDOWN */
+    .sort-dropdown {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* PRODUCT GRID */
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, max-content));
+        justify-content: center;
+        gap: 15px;
+        padding-bottom: 40px;
+    }
+
+    /* PRODUCT CARD */
+    .product-card {
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        text-align: center;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        width: 260px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 480px;
+    }
+
+        /* ✨ only subtle outer shadow on hover, no background or inner color change */
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(255, 102, 0, 0.4);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+            border-bottom: 2px solid #ff6600;
+            transition: transform 0.25s ease;
+        }
+
+            .product-card img:hover {
+                transform: scale(1.03);
+            }
+
+        .product-card h3 {
+            color: #ff6600;
+            margin: 15px 0 5px;
+            font-size: 1.1rem;
+        }
+
+        .product-card p {
+            margin-bottom: 10px;
+            color: #ff9c4a;
+            font-weight: 600;
+        }
+
+        /* VIEW DETAILS BUTTON */
+        .product-card a.details-btn {
+            background-color: transparent;
+            border: 1px solid #ff6600;
+            color: #ff6600;
+            padding: 8px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 15px auto 20px;
+            display: inline-block;
+            width: fit-content;
+            transition: all 0.3s ease;
+        }
+
+            .product-card a.details-btn:hover {
+                background-color: #ff6600;
+                color: #fff;
+            }
+
+    @@media (max-width: 768px) {
+        .product-grid {
+            gap: 12px;
+        }
+
+        .product-card {
+            width: 90%;
+            height: auto;
+        }
+
+            .product-card img {
+                height: 220px;
+            }
+    }
+</style>
+
+<h1>Our Anime Collection</h1>
+
+<!-- FILTER BUTTONS -->
+<div class="filter-bar">
+    <a asp-controller="Products" asp-action="Index" class="@(ViewBag.SelectedCategory == null ? "active" : "")">All</a>
+    <a asp-controller="Products" asp-action="Index" asp-route-category="Figurines" class="@(ViewBag.SelectedCategory == "Figurines" ? "active" : "")">Figurines</a>
+    <a asp-controller="Products" asp-action="Index" asp-route-category="Keychains" class="@(ViewBag.SelectedCategory == "Keychains" ? "active" : "")">Keychains</a>
+    <a asp-controller="Products" asp-action="Index" asp-route-category="Posters" class="@(ViewBag.SelectedCategory == "Posters" ? "active" : "")">Posters</a>
+</div>
+
+<!-- SORT DROPDOWN -->
+<div class="sort-dropdown">
+    <form method="get" asp-controller="Products" asp-action="Index">
+        <input type="hidden" name="category" value="@ViewBag.SelectedCategory" />
+        <select name="sortOrder" onchange="this.form.submit()">
+            <option value="">Sort by Price</option>
+
+            @if (ViewBag.SortOrder == "low")
+            {
+                <option value="low" selected>Low to High</option>
+            }
+            else
+            {
+                <option value="low">Low to High</option>
+            }
+
+            @if (ViewBag.SortOrder == "high")
+            {
+                <option value="high" selected>High to Low</option>
+            }
+            else
+            {
+                <option value="high">High to Low</option>
+            }
+        </select>
+    </form>
+</div>
+
+<!-- PRODUCT GRID -->
+<div class="product-grid">
+    @foreach (var product in Model)
+    {
+        <div class="product-card">
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" style="text-decoration:none; color:inherit;">
+                <img src="@product.ImagePath" alt="@product.Name" />
+                <div>
+                    <h3>@product.Name</h3>
+                    <p>₹@product.Price</p>
+                </div>
+            </a>
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="details-btn">View Details</a>
+        </div>
+    }
+</div>
